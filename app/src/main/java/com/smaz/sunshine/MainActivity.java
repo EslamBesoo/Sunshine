@@ -1,18 +1,9 @@
 package com.smaz.sunshine;
 
-import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.LayoutInflater;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
-
-import java.util.ArrayList;
-import java.util.Arrays;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -22,7 +13,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
-                    .add(R.id.container, new PlaceholderFragment())
+                    .add(R.id.container, new ForecastFragment())
                     .commit();
         }
     }
@@ -44,6 +35,8 @@ public class MainActivity extends AppCompatActivity {
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
+        }else if (id== R.id.action_refresh){
+
         }
 
         return super.onOptionsItemSelected(item);
@@ -52,32 +45,4 @@ public class MainActivity extends AppCompatActivity {
     /**
      * A placeholder fragment containing a simple view.
      */
-    public static class PlaceholderFragment extends Fragment {
-
-        public PlaceholderFragment() {
-        }
-
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                                 Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_main, container, false);
-            String [] forecastArray = {"Today - Sunny - 68 / 66",
-                    "Tomorrow - cloudy - 56 / 44",
-                    "Weds - Foggy - 53 / 69",
-                    "thurs - Sunny light - 89 / 66",
-                    "Fri - Rainy - 56 / 44",
-                    "Sat - Sunny - 53 / 69"
-
-            };
-            ArrayList<String> weekForcast = new ArrayList<String>(Arrays.asList(forecastArray));
-            ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),R.layout.list_item_forecast,R.id.list_item_forecast_textview,weekForcast);
-
-            ListView List = (ListView)rootView.findViewById(R.id.listview_forecast);
-            List.setAdapter(adapter);
-
-
-
-            return rootView;
-        }
-    }
-}
+   }
