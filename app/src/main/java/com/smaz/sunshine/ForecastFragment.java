@@ -1,5 +1,6 @@
 package com.smaz.sunshine;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -12,6 +13,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -72,11 +74,21 @@ public class ForecastFragment extends Fragment {
                 "Fri - Sunny - 53 / 69"
 
         };
-        ArrayList<String> weekForcast = new ArrayList<String>(Arrays.asList(forecastArray));
+        final ArrayList<String> weekForcast = new ArrayList<String>(Arrays.asList(forecastArray));
         adapter = new ArrayAdapter<>(getActivity(), R.layout.list_item_forecast, R.id.list_item_forecast_textview, weekForcast);
 
         ListView List = (ListView) rootView.findViewById(R.id.listview_forecast);
         List.setAdapter(adapter);
+        List.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String weather = weekForcast.get(position);
+                Intent i = new Intent(getActivity(), DetailActivity.class);
+                i.putExtra(Intent.EXTRA_TEXT, weather);
+                startActivity(i);
+
+            }
+        });
 
 
 
