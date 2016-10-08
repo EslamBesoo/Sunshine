@@ -1,6 +1,10 @@
 package com.smaz.sunshine;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -34,15 +38,29 @@ public class MainActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            return true;
-        }else if (id== R.id.action_refresh){
+
+            Intent i = new Intent(this, SettingsActivity.class);
+            startActivity(i);
+        } else if (id == R.id.action_map) {
+            MapLocation();
 
         }
 
         return super.onOptionsItemSelected(item);
     }
 
-    /**
-     * A placeholder fragment containing a simple view.
-     */
+    private void MapLocation() {
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        String location = preferences.getString(getString(R.string.pref_location_key), getString(R.string.pref_location_default));
+
+        Uri geoLocation = Uri.parse("geo:0,0?").buildUpon()
+                .appendQueryParameter("q", location).build();
+
+        Intent i = new Intent(Intent.ACTION_VIEW);
+        i.setData(geoLocation);
+        if (i.resolveActivity(getPackageManager()) != null) {
+            startActivity(i);
+        }
+
+    }
    }
