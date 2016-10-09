@@ -15,7 +15,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 /**
- * Created by Mohab on 10/3/2016.
+ * Created by EsLaM on 10/3/2016.
  */
 
 public class DetailFragment extends Fragment {
@@ -60,8 +60,8 @@ public class DetailFragment extends Fragment {
     private Intent createShareForecastIntent() {
         Intent i = new Intent(Intent.ACTION_SEND);
         i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        i.setType("text/plain");
-        i.putExtra("data", weather + " " + "#SunShine App");
+
+        i.putExtra(Intent.EXTRA_TEXT, weather + " " + "#SunShine App");
         return i;
     }
 }
